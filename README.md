@@ -29,3 +29,6 @@ The service results are captured on different kind of deliverables to different 
 * The Service Specific Reports, presenting the service results for a given target site (e.g. the ESA's hubs or the DIAS); and
 * The Service Summary Report, presenting an overview of the core benchmarking results to the Copernicus governance.
 
+Further documentaton can be found on:
+* [CDAB Quality Of Experience indicators](https://github.com/esa-cdab/cdab-service/wiki)
+* [CDAB Software Test Suite](https://github.com/esa-cdab/cdab-testsuite)
