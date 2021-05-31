@@ -1,5 +1,5 @@
 
-![CDAB logo](doc/images/cdab-logo.jpg)
+![CDAB logo](docs/images/cdab-logo.jpg)
 
 # The Copernicus Sentinels Data Access Benchmark Service
 
