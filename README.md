@@ -1,3 +1,6 @@
+
+![CDAB logo](doc/images/cdab-logo.jpg)
+
 # The Copernicus Sentinels Data Access Benchmark Service
 
 The objective of the Copernicus Sentinels Data Access Worldwide Benchmark is to provide impartial and reliable information on the Sentinels data accessibility from the access points under ESA management, building a comprehensive and objective overview of the conditions actually experienced by users.
@@ -32,3 +35,7 @@ The service results are captured on different kind of deliverables to different 
 Further documentaton can be found on:
 * [CDAB Quality Of Experience indicators](https://github.com/esa-cdab/cdab-service/wiki)
 * [CDAB Software Test Suite](https://github.com/esa-cdab/cdab-testsuite)
+
+<hr/>
+<p align="center">Funded by EU</p>
+<p align="center"><img src="copernicus-logo.png" alt="Copernicus" height="125"/><img src="esa-logo.png" alt="ESA" height="125"/></p>
