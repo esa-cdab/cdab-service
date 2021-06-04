@@ -36,6 +36,9 @@ Further documentaton can be found on:
 * [CDAB Quality Of Experience indicators](https://github.com/esa-cdab/cdab-service/wiki)
 * [CDAB Software Test Suite](https://github.com/esa-cdab/cdab-testsuite)
 
+A free QoE (Quality Of Experience) calculator plugin can be found at:
+* [CDAB QoE calculator plugin](https://github.com/esa-cdab/cdab-service/tree/main/tools/qoe_calculator)
+
 <hr/>
 <p align="center">Funded by EU</p>
 <p align="center"><img src="copernicus-logo.png" alt="Copernicus" height="125"/><img src="esa-logo.png" alt="ESA" height="125"/></p>
