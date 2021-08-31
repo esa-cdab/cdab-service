@@ -32,7 +32,7 @@ def open_db(config):
 		  host=config["host"],
 		  user=config["user"],
 		  password=config["password"],
-		  database=data["database"]
+		  database=config["database"]
 		)
 	except mysql.connector.Error as err:
 		print("Something went wrong: {}".format(err))
@@ -40,13 +40,14 @@ def open_db(config):
 
 	return (db.cursor(), db)
 
-def fetch_metric(cursor, metric):
+def fetch_metric(cursor, metric, test_case):
 	# standard fetch function, given a metric name retrieves all the values
 	# in the database associated with that metric
 
 	cursor.execute(
 		"SELECT value FROM Runs WHERE metricId = \
-		(SELECT id FROM Metrics WHERE name=%s)", (metric,))
+		(SELECT id FROM Metrics WHERE name=%s) and \
+		testCaseId in (select id from TestCase where name=%s", (metric, test_case))
 	res = [d[0] for d in cursor.fetchall()]
 	return res
 
@@ -54,10 +55,10 @@ def fetch_metric(cursor, metric):
 def q1(cursor):
 	# Fetches metrics needed to calculate Q1 and save them in a json file
 	results = {}
-	results["M015"] = fetch_metric(cursor, "catalogueCoverage")
-	results["M023"] = fetch_metric(cursor, "dataCoverage")
-	results["M013"] = fetch_metric(cursor, "avgDataAvailabilityLatency")
-	results["M024"] = fetch_metric(cursor, "dataOfferConsistency")
+	results["M015"] = fetch_metric(cursor, "catalogueCoverage", "TC501")
+	results["M023"] = fetch_metric(cursor, "dataCoverage", "TC502")
+	results["M013"] = fetch_metric(cursor, "avgDataAvailabilityLatency", "TC602")
+	results["M024"] = fetch_metric(cursor, "dataOfferConsistency", "TC503")
 
 	with open("q1_data.json", "w") as output:
 		json.dump(results, output)
@@ -65,9 +66,9 @@ def q1(cursor):
 def q2(cursor):
 	# Fetches metrics needed to calculate Q2 and save them in a json file
 	results = {}
-	results["M001"] = fetch_metric(cursor, "avgResponseTime")
-	results["M002"] = fetch_metric(cursor, "peakResponseTime")
-	results["M003"] = fetch_metric(cursor, "errorRate")
+	results["M001"] = fetch_metric(cursor, "avgResponseTime", "TC101")
+	results["M002"] = fetch_metric(cursor, "peakResponseTime", "TC101")
+	results["M003"] = fetch_metric(cursor, "errorRate", "TC101")
 	with open("q2_data.json", "w") as output:
 		json.dump(results, output)
 	
@@ -75,21 +76,34 @@ def q2(cursor):
 def q3(cursor):
 	# Fetches metrics needed to calculate Q3 and save them in a json file
 	results = {}
-	results["M001"] = fetch_metric(cursor, "avgResponseTime")
-	results["M002"] = fetch_metric(cursor, "peakResponseTime")
-	results["M003"] = fetch_metric(cursor, "errorRate")
-	results["M012"] = fetch_metric(cursor, "resultsErrorRate")
+	results["M001"] = []
+	results["M002"] = []
+	results["M003"] = []
+	results["M012"] = []
+	for tc in ["TC201", "TC202", "TC203", "TC204"]:
+		results["M001"].append(fetch_metric(cursor, "avgResponseTime", tc))
+		results["M002"].append(fetch_metric(cursor, "peakResponseTime", tc))
+		results["M003"].append(fetch_metric(cursor, "errorRate", tc))
+		results["M012"].append(fetch_metric(cursor, "resultsErrorRate", tc))
+
 	with open("q3_data.json", "w") as output:
 		json.dump(results, output)
 
 def q4(cursor):
 	# Fetches metrics needed to calculate Q4 and save them in a json file
 	results = {}
-	results["M001"] = fetch_metric(cursor, "avgResponseTime")
-	results["M002"] = fetch_metric(cursor, "peakResponseTime")
-	results["M003"] = fetch_metric(cursor, "errorRate")
-	results["M005"] = fetch_metric(cursor, "throughput")
-	results["M017"] = fetch_metric(cursor, "offlineDataAvailabilityLatency")
+	results["M001"] = []
+	results["M002"] = []
+	results["M003"] = []
+	results["M005"] = []
+
+	for tc in ["TC301", "TC302", "TC303"]:
+		results["M001"].append(fetch_metric(cursor, "avgResponseTime", tc))
+		results["M002"].append(fetch_metric(cursor, "peakResponseTime", tc))
+		results["M003"].append(fetch_metric(cursor, "errorRate", tc))
+		results["M005"].append(fetch_metric(cursor, "throughput", tc))
+
+	results["M017"] = fetch_metric(cursor, "offlineDataAvailabilityLatency", "TC304")
 	with open("q4_data.json", "w") as output:
 		json.dump(results, output)
 

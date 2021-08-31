@@ -71,15 +71,27 @@ def update_db(cursor, input_dir):
 
 				for metric in test_case["metrics"]:
 					if not isinstance(metric["value"], list):
+						cursor.execute("SELECT id FROM Metrics WHERE name=%s", (metric["name"],))
+						
+						try:
+							metric_id = cursor.fetchone()[0]
+						except TypeError:
+							print("Metric {} is not currently supported in the database".format(metric["name"]))
+							continue
+
 						cursor.execute(
 							"INSERT IGNORE INTO Runs \
 							(metricId, testcaseId, value) VALUES \
-							((SELECT id FROM Metrics WHERE name=%s), %s, %s)", 
-							(metric["name"], test_id, metric["value"]))
+							(%s, %s, %s)", 
+							(metric_id, test_id, metric["value"]))
 
 					elif metric["uom"] != "string":
 						cursor.execute("SELECT id FROM Metrics WHERE name=%s", (metric["name"],))
-						metric_id = cursor.fetchone()[0]
+						try:
+							metric_id = cursor.fetchone()[0]
+						except TypeError:
+							print("Metric {} is not currently supported in the database".format(metric["name"]))
+							continue
 
 						query = "INSERT IGNORE INTO Runs (metricId, testcaseId, value) VALUES "
 						for val in metric["value"]:
