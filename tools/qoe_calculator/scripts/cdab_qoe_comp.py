@@ -81,8 +81,8 @@ def q1(q1_data, thresholds, weights):
 	with open(q1_data) as f:
 		data = json.load(f)
 
-	apdexm13 = calculate_apdex(data["M013"], thresholds["M013"]["satisfied"], thresholds["M013"]["frustrated"])
-	apdexm24 = calculate_apdex(data["M024"], thresholds["M024"]["satisfied"], thresholds["M024"]["frustrated"])
+	apdexm13 = calculate_apdex(data["M013"], thresholds["Q1"]["M013"]["satisfied"], thresholds["M013"]["frustrated"])
+	apdexm24 = calculate_apdex(data["M024"], thresholds["Q1"]["M024"]["satisfied"], thresholds["M024"]["frustrated"])
 	
 	result = {}
 	result["APDEXM013"] = apdexm13
@@ -101,9 +101,9 @@ def q2(q2_data, thresholds, weights):
 	with open(q2_data) as f:
 		data = json.load(f)
 
-	apdexm1 = calculate_apdex(data["M001"], thresholds["M001"]["satisfied"], thresholds["M001"]["frustrated"])
-	apdexm2 = calculate_apdex(data["M002"], thresholds["M002"]["satisfied"], thresholds["M002"]["frustrated"])
-	apdexm3 = calculate_apdex(data["M003"], thresholds["M003"]["satisfied"], thresholds["M003"]["frustrated"])
+	apdexm1 = calculate_apdex(data["M001"], thresholds["Q2"]["M001"]["satisfied"], thresholds["M001"]["frustrated"])
+	apdexm2 = calculate_apdex(data["M002"], thresholds["Q2"]["M002"]["satisfied"], thresholds["M002"]["frustrated"])
+	apdexm3 = calculate_apdex(data["M003"], thresholds["Q2"]["M003"]["satisfied"], thresholds["M003"]["frustrated"])
 
 	result = {}
 	result["APDEXM001"] = apdexm1
@@ -118,10 +118,10 @@ def q3(q3_data, thresholds, weights):
 	with open(q3_data) as f:
 		data = json.load(f)
 
-	apdexm1 = calculate_apdex(data["M001"], thresholds["M001"]["satisfied"], thresholds["M001"]["frustrated"])
-	apdexm2 = calculate_apdex(data["M002"], thresholds["M002"]["satisfied"], thresholds["M002"]["frustrated"])
-	apdexm3 = calculate_apdex(data["M003"], thresholds["M003"]["satisfied"], thresholds["M003"]["frustrated"])
-	apdexm12 = calculate_apdex(data["M012"], thresholds["M012"]["satisfied"], thresholds["M012"]["frustrated"])
+	apdexm1 = calculate_apdex(data["M001"], thresholds["Q3"]["M001"]["satisfied"], thresholds["M001"]["frustrated"])
+	apdexm2 = calculate_apdex(data["M002"], thresholds["Q3"]["M002"]["satisfied"], thresholds["M002"]["frustrated"])
+	apdexm3 = calculate_apdex(data["M003"], thresholds["Q3"]["M003"]["satisfied"], thresholds["M003"]["frustrated"])
+	apdexm12 = calculate_apdex(data["M012"], thresholds["Q3"]["M012"]["satisfied"], thresholds["M012"]["frustrated"])
 
 
 	result = {}
@@ -139,11 +139,11 @@ def q4(q4_data, thresholds, weights):
 	with open(q4_data) as f:
 		data = json.load(f)
 
-	apdexm1 = calculate_apdex(data["M001"], thresholds["M001"]["satisfied"], thresholds["M001"]["frustrated"])
-	apdexm2 = calculate_apdex(data["M002"], thresholds["M002"]["satisfied"], thresholds["M002"]["frustrated"])
-	apdexm3 = calculate_apdex(data["M003"], thresholds["M003"]["satisfied"], thresholds["M003"]["frustrated"])
-	apdexm5 = calculate_apdex(data["M005"], thresholds["M005"]["satisfied"], thresholds["M005"]["frustrated"])
-	apdexm17 = calculate_apdex(data["M017"], thresholds["M017"]["satisfied"], thresholds["M017"]["frustrated"])
+	apdexm1 = calculate_apdex(data["M001"], thresholds["Q4"]["M001"]["satisfied"], thresholds["M001"]["frustrated"])
+	apdexm2 = calculate_apdex(data["M002"], thresholds["Q4"]["M002"]["satisfied"], thresholds["M002"]["frustrated"])
+	apdexm3 = calculate_apdex(data["M003"], thresholds["Q4"]["M003"]["satisfied"], thresholds["M003"]["frustrated"])
+	apdexm5 = calculate_apdex(data["M005"], thresholds["Q4"]["M005"]["satisfied"], thresholds["M005"]["frustrated"])
+	apdexm17 = calculate_apdex(data["M017"], thresholds["Q4"]["M017"]["satisfied"], thresholds["M017"]["frustrated"])
 
 
 	result = {}
@@ -163,6 +163,13 @@ def main():
 	# the QoEs
 	args = get_args()
 	
+	if (args.q1 is None) and (args.q2 is None) and (args.q3 is None) and (args.q4 is None):
+		print("No data files have been provided \
+			therefore no indicator will be produced\n\
+			For further information run the following \
+			command: python3 cdab_qoe_comp.py -h")
+		exit(0)
+
 	with open(args.w) as f:
 		weights = json.load(f)
 
@@ -177,6 +184,7 @@ def main():
 		q3(args.q3, thresholds, weights["Q3"])
 	if args.q4 is not None:
 		q4(args.q4, thresholds, weights["Q4"])
+
 
 
 if __name__ == '__main__':
