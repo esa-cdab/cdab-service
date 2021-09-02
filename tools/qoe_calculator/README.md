@@ -9,17 +9,18 @@ Execute the first script to create the database
 mysql -u root -p < create_cdab_db_stats.sql
 ```
 
-Then execute the parsing 
+Then execute the parsing, if necessary specify the name of the test site where the tests were performed, otherwise this information will be extracted
+from the json itself
 
 ```
-python3 import_cdab_data.py -i folder/with/results/ -c pathTo/config.json
+python3 import_cdab_data.py -i folder/with/results/ -c pathTo/config.json -t testSiteName
 
 ```
 
-Now that the database is filled with all the metrics needed you can extract them with the appropriate script
+Now that the database is filled with all the metrics needed you can extract them with the appropriate script. This time the test site name must be specified to make sure that the correct metrics are fetched from the database.
 
 ```
-python3 exctract_q.py -c pathTo/config.json
+python3 exctract_q.py -c pathTo/config.json t testSiteName
 ```
 
 And finally you can produce the QoE 
@@ -33,9 +34,9 @@ python3 calculate_q.py -t Thresholds -w Weights [-q1 QoE 1] [-q2 QoE 2] [-q3 QoE
 The first script that has to be executed, it creates a database to contain the metrics, the following tables are used
 
 ### TestCase
-| PK(id)  | name    | target  | startedAt |
-|-----|---------|---------|-----------|
-| int | varchar | varchar | datetime  |
+| PK(id)  | name    | target  | startedAt | testSite |
+|-----|---------|---------|-----------|---------|
+| int | varchar | varchar | datetime  | varchar |
 
 This table is used to store informations about the testcase executed, the primary key is an auto increment id allowing multiple copies of the same test case to be inserted.
 
