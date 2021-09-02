@@ -71,7 +71,6 @@ def calculate_apdex(metric, satisf_tresh, tolerating_tresh):
 				total += 1
 			elif val <= tolerating_tresh and val > satisf_tresh:
 				total += 0.5
-
 	return total/len(metric)
 
 
@@ -81,8 +80,8 @@ def q1(q1_data, thresholds, weights):
 	with open(q1_data) as f:
 		data = json.load(f)
 
-	apdexm13 = calculate_apdex(data["M013"], thresholds["Q1"]["M013"]["satisfied"], thresholds["M013"]["frustrated"])
-	apdexm24 = calculate_apdex(data["M024"], thresholds["Q1"]["M024"]["satisfied"], thresholds["M024"]["frustrated"])
+	apdexm13 = calculate_apdex(data["M013"], thresholds["Q1"]["M013"]["satisfied"], thresholds["Q1"]["M013"]["frustrated"])
+	apdexm24 = calculate_apdex(data["M024"], thresholds["Q1"]["M024"]["satisfied"], thresholds["Q1"]["M024"]["frustrated"])
 	
 	result = {}
 	result["APDEXM013"] = apdexm13
@@ -101,9 +100,9 @@ def q2(q2_data, thresholds, weights):
 	with open(q2_data) as f:
 		data = json.load(f)
 
-	apdexm1 = calculate_apdex(data["M001"], thresholds["Q2"]["M001"]["satisfied"], thresholds["M001"]["frustrated"])
-	apdexm2 = calculate_apdex(data["M002"], thresholds["Q2"]["M002"]["satisfied"], thresholds["M002"]["frustrated"])
-	apdexm3 = calculate_apdex(data["M003"], thresholds["Q2"]["M003"]["satisfied"], thresholds["M003"]["frustrated"])
+	apdexm1 = calculate_apdex(data["M001"], thresholds["Q2"]["M001"]["satisfied"], thresholds["Q2"]["M001"]["frustrated"])
+	apdexm2 = calculate_apdex(data["M002"], thresholds["Q2"]["M002"]["satisfied"], thresholds["Q2"]["M002"]["frustrated"])
+	apdexm3 = calculate_apdex(data["M003"], thresholds["Q2"]["M003"]["satisfied"], thresholds["Q2"]["M003"]["frustrated"])
 
 	result = {}
 	result["APDEXM001"] = apdexm1
@@ -118,10 +117,10 @@ def q3(q3_data, thresholds, weights):
 	with open(q3_data) as f:
 		data = json.load(f)
 
-	apdexm1 = calculate_apdex(data["M001"], thresholds["Q3"]["M001"]["satisfied"], thresholds["M001"]["frustrated"])
-	apdexm2 = calculate_apdex(data["M002"], thresholds["Q3"]["M002"]["satisfied"], thresholds["M002"]["frustrated"])
-	apdexm3 = calculate_apdex(data["M003"], thresholds["Q3"]["M003"]["satisfied"], thresholds["M003"]["frustrated"])
-	apdexm12 = calculate_apdex(data["M012"], thresholds["Q3"]["M012"]["satisfied"], thresholds["M012"]["frustrated"])
+	apdexm1 = calculate_apdex(data["M001"], thresholds["Q3"]["M001"]["satisfied"], thresholds["Q3"]["M001"]["frustrated"])
+	apdexm2 = calculate_apdex(data["M002"], thresholds["Q3"]["M002"]["satisfied"], thresholds["Q3"]["M002"]["frustrated"])
+	apdexm3 = calculate_apdex(data["M003"], thresholds["Q3"]["M003"]["satisfied"], thresholds["Q3"]["M003"]["frustrated"])
+	apdexm12 = calculate_apdex(data["M012"], thresholds["Q3"]["M012"]["satisfied"], thresholds["Q3"]["M012"]["frustrated"])
 
 
 	result = {}
@@ -139,11 +138,11 @@ def q4(q4_data, thresholds, weights):
 	with open(q4_data) as f:
 		data = json.load(f)
 
-	apdexm1 = calculate_apdex(data["M001"], thresholds["Q4"]["M001"]["satisfied"], thresholds["M001"]["frustrated"])
-	apdexm2 = calculate_apdex(data["M002"], thresholds["Q4"]["M002"]["satisfied"], thresholds["M002"]["frustrated"])
-	apdexm3 = calculate_apdex(data["M003"], thresholds["Q4"]["M003"]["satisfied"], thresholds["M003"]["frustrated"])
-	apdexm5 = calculate_apdex(data["M005"], thresholds["Q4"]["M005"]["satisfied"], thresholds["M005"]["frustrated"])
-	apdexm17 = calculate_apdex(data["M017"], thresholds["Q4"]["M017"]["satisfied"], thresholds["M017"]["frustrated"])
+	apdexm1 = calculate_apdex(data["M001"], thresholds["Q4"]["M001"]["satisfied"], thresholds["Q4"]["M001"]["frustrated"])
+	apdexm2 = calculate_apdex(data["M002"], thresholds["Q4"]["M002"]["satisfied"], thresholds["Q4"]["M002"]["frustrated"])
+	apdexm3 = calculate_apdex(data["M003"], thresholds["Q4"]["M003"]["satisfied"], thresholds["Q4"]["M003"]["frustrated"])
+	apdexm5 = calculate_apdex(data["M005"], thresholds["Q4"]["M005"]["satisfied"], thresholds["Q4"]["M005"]["frustrated"])
+	apdexm17 = calculate_apdex(data["M017"], thresholds["Q4"]["M017"]["satisfied"], thresholds["Q4"]["M017"]["frustrated"])
 
 
 	result = {}

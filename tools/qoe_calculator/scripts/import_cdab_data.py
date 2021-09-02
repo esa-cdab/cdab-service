@@ -27,6 +27,12 @@ def get_args():
 		help="Specifies the full path to the file containing \
 		the database configuration")
 
+	parser.add_argument(
+		"-t", 
+		metavar="TestSite",  
+		help="The test site where the test was performed, if not specified it \
+		will be retrieved from the json parameter \"testSite\"")
+
 	return parser.parse_args()
 
 
@@ -48,7 +54,7 @@ def open_db(config):
 
 	return (db.cursor(), db)
 
-def update_db(cursor, input_dir):
+def update_db(cursor, input_dir, testSite=None):
 	# First get the name of all the json files in the directory, then open one by one and parse + update db. 
 	# Returns 1 if everything was correctly executed, in case of error returns 0
 
@@ -57,6 +63,14 @@ def update_db(cursor, input_dir):
 		with open(input_dir + "/" + filename) as f:
 			data = json.load(f)
 
+		if testSite is None:
+			try:
+				testSite = data["testSite"]
+			except KeyError:
+				print("File {} is missing testSite parameter, please import\
+					it again specifing it".format(filename))
+				continue
+
 		try:
 			target = data["testTarget"]		
 			
@@ -64,8 +78,8 @@ def update_db(cursor, input_dir):
 				test_name = test_case["testName"]
 				started_at = test_case["startedAt"]
 				
-				cursor.execute("INSERT INTO TestCase (name, target, startedAt) \
-					VALUES (%s, %s, %s)", (test_name, target, started_at))
+				cursor.execute("INSERT INTO TestCase (name, target, startedAt, testSite) \
+					VALUES (%s, %s, %s, %s)", (test_name, target, started_at, testSite))
 				
 				test_id = cursor.lastrowid
 
@@ -109,7 +123,7 @@ def main():
 
 	args = get_args()
 	cursor, db = open_db(args.c)
-	result = update_db(cursor, args.i)
+	result = update_db(cursor, args.i, args.t)
 	if result:
 		db.commit()
 	cursor.close()
