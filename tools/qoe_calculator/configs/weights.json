@@ -21,6 +21,7 @@
 		"APDEXM002" : 0.05,
 		"APDEXM003" : 0.2,
 		"APDEXM005" : 0.5,
-		"APDEXM017" : 0.15
+		"APDEXM017" : 0.5,
+		"Q41_score" : 0.15
 	}
 }

@@ -3,9 +3,12 @@
 	"user" : "user",
 	"database" : "database",
 	"password" : "password",
-	"q1" : true,
-	"q2" : false,
-	"q3" : false,
-	"q4" : false
-
+  "target": "scihub",
+  "testsite": ["Belgium_Test_Site_1","Italy_Test_Site_1","France_Test_Site_3","Germany_Test_Site_1","Poland_Test_Site_2"],
+  "startTime":"2021-03-16T00:00:00",
+  "stopTime":"2021-05-23T23:59:59.999",
+  "q1" : true,
+	"q2" : true,
+	"q3" : true,
+	"q4" : true
 }
