@@ -28,7 +28,7 @@ The main pillars of the benchmarking service architecture are:
 * the Service Management, in charge of the overall management including possible evolutions.
 
 The service results are captured on different kind of deliverables to different stakeholders with different distribution policies such as:
-* The [Service Design Document](https://github.com/esa-cdab/cdab-service/blob/main/docs/Service_Design_Document_V2_1_0_signed.pdf), presenting the main characteristics of the service and providing key information that is needed to interpret the service results. 
+* The [Service Design Document](https://github.com/esa-cdab/cdab-service/blob/main/docs/Service_Design_Document_V2_2_1_signed.pdf), presenting the main characteristics of the service and providing key information that is needed to interpret the service results. 
 * The Service Specific Reports, presenting the service results for a given target site (e.g. the ESA's hubs or the DIAS); and
 * The Service Summary Report, presenting an overview of the core benchmarking results to the Copernicus governance.
 
